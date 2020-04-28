@@ -21,6 +21,7 @@ pipeline {
     stage('Ping') {
       steps {
         echo 'Ping'
+        curl docker:8181
       }
     }
 
