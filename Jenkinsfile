@@ -16,8 +16,8 @@ pipeline {
 		        def appImage = docker.build("ex5Quest1Repo:${BUILD_NUMBER}")
         	}
         }
-      }
     }
+    
 
     stage('Deploy') {
       parallel {
