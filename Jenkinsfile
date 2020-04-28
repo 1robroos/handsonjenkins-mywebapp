@@ -19,6 +19,7 @@ pipeline {
         	}
         }
       }
+    }
 
     stage('Deploy') {
       parallel {
@@ -31,19 +32,6 @@ pipeline {
             sh "docker run -d -p ${port}:80 --name=${containerName} ${ex5Quest1Repo}:${BUILD_NUMBER}  "
           }
         }
-
-        stage('Test Chrome') {
-          steps {
-            sh 'echo \'Testing Chrome\''
-          }
-        }
-
-        stage('Test edge') {
-          steps {
-            sh 'echo \'Want to test edge\''
-          }
-        }
-
       }
     }
 
