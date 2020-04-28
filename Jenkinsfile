@@ -35,6 +35,7 @@ pipeline {
     // }
 
   } //stage definitions
+}  // pipeline
 
     def buildApp() {
         sh "echo Building..."
@@ -42,4 +43,3 @@ pipeline {
             def appImage = docker.build("ex5Quest1Repo:${BUILD_NUMBER}")
         }
     }
-}  // pipeline
