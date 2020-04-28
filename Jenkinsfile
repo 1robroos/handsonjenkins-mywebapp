@@ -18,11 +18,11 @@ pipeline {
         steps { deployApp() }
     }
 
-    // stage('Ping') {
-    //   steps {
-    //     echo 'Ping'
-    //   }
-    // }
+    stage('Ping') {
+      steps {
+        echo 'Ping'
+      }
+    }
 
   } //stage definitions
 }  // pipeline
