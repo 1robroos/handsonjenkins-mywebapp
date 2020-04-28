@@ -40,6 +40,6 @@ pipeline {
     def buildApp() {
         sh "echo Building..."
         dir ('.' ) {
-            def appImage = docker.build("ex5Quest1Repo:${BUILD_NUMBER}")
+            def appImage = docker.build("${ex5Quest1Repo}:${BUILD_NUMBER}")
         }
     }
