@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-          echo 'Building...'
+          sh "echo Building..."
 	        dir ('.' ) {
 		        def appImage = docker.build("ex5Quest1Repo:${BUILD_NUMBER}")
         	}
