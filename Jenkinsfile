@@ -22,13 +22,6 @@ pipeline {
         steps { runUAT(8181) }
     }
 
-    // stage('Ping') {
-    //   steps {
-    //     echo 'Ping'
-    //     curl docker:8181
-    //   }
-    // }
-
   } //stage definitions
 }  // pipeline
 
