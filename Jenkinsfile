@@ -1,0 +1,57 @@
+#!/usr/bin/groovy
+// Declarative pipeline; Each stage directive needs a steps directive.
+pipeline {
+  agent any
+
+        environment {
+                //PYTHONPATH = "${WORKSPACE}/section_4/code/cd_pipeline"
+                ex5Quest1Repo = "handsonjenkins_ex5"  
+        }
+
+  stages {
+    stage('Build') {
+      steps {
+          echo 'Building...'
+ 
+          def buildApp() {
+	        dir ('.' ) {
+		        def appImage = docker.build("ex5Quest1Repo:${BUILD_NUMBER}")
+        	}
+        }
+      }
+
+    stage('Deploy') {
+      parallel {
+        stage('Deploy the website') {
+          steps {
+            def containerName = 'ex5Quest1'
+            def port = '8181'
+            sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
+            sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
+            sh "docker run -d -p ${port}:80 --name=${containerName} ${ex5Quest1Repo}:${BUILD_NUMBER}  "
+          }
+        }
+
+        stage('Test Chrome') {
+          steps {
+            sh 'echo \'Testing Chrome\''
+          }
+        }
+
+        stage('Test edge') {
+          steps {
+            sh 'echo \'Want to test edge\''
+          }
+        }
+
+      }
+    }
+
+    stage('Ping') {
+      steps {
+        echo 'Ping'
+      }
+    }
+
+  }
+}
