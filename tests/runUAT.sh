@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set variables
-hostname='localhost'
+hostip=$(ip route show | awk '/default/ {print $3}')
+echo $hostip
+hostname=$hostip
 port=$1
 
 # wait for the app to start
@@ -12,8 +14,8 @@ status_code=$(curl --write-out %{http_code} --out /dev/null --silent ${hostname}
 
 if [ $status_code == 200 ];
 then
-        echo "PASS: ${hostname}:${port} is reachable"
+	echo "PASS: ${hostname}:${port} is reachable"
 else
-        echo "FAIL: ${hostname}:${port} is unreachable"
+	echo "FAIL: ${hostname}:${port} is unreachable"
     exit 1
 fi
