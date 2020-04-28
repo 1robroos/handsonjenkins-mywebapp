@@ -14,19 +14,19 @@ pipeline {
     }
     
 
-    // stage('Deploy') {
-    //   parallel {
-    //     stage('Deploy the website') {
-    //       steps {
-    //         def containerName = 'ex5Quest1'
-    //         def port = '8181'
-    //         sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
-    //         sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
-    //         sh "docker run -d -p ${port}:80 --name=${containerName} ${ex5Quest1Repo}:${BUILD_NUMBER}  "
-    //       }
-    //     }
-    //   }
-    // }
+    stage('Deploy') {
+      parallel {
+        stage('Deploy the website') {
+          steps {
+            def containerName = 'ex5Quest1'
+            def port = '8181'
+            sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
+            sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
+            sh "docker run -d -p ${port}:80 --name=${containerName} ${ex5Quest1Repo}:${BUILD_NUMBER}  "
+          }
+        }
+      }
+    }
 
     // stage('Ping') {
     //   steps {
