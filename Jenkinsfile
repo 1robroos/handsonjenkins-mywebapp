@@ -18,12 +18,16 @@ pipeline {
         steps { deployApp() }
     }
 
-    stage('Ping') {
-      steps {
-        echo 'Ping'
-        curl docker:8181
-      }
+    stage("Test - UAT Live") {
+        steps { runUAT(8181) }
     }
+
+    // stage('Ping') {
+    //   steps {
+    //     echo 'Ping'
+    //     curl docker:8181
+    //   }
+    // }
 
   } //stage definitions
 }  // pipeline
@@ -42,4 +46,8 @@ pipeline {
             sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
             sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
             sh "docker run -d -p ${port}:80 --name=${containerName} ${ex5Quest1Repo}:${BUILD_NUMBER}  "
+    }
+
+    def runUAT(port) {
+            sh "tests/runUAT.sh ${port}"
     }
