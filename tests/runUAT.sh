@@ -1,9 +1,6 @@
 #!/bin/bash
 
 # set variables
-//hostip=$(ip route show | awk '/default/ {print $3}')
-//echo $hostip
-//hostname=$hostip
 hostname=localhost
 port=$1
 
